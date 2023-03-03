@@ -36,7 +36,7 @@ function App() {
 			<BoxHeading>General</BoxHeading>
 			<p className="font-sans antialiased font-semibold">Background color:</p>
 			<div className="btns">
-			  <InputColor>#ffffff</InputColor>
+			  <InputColor></InputColor>
 			</div>
 		  </div>
 		</div>
@@ -73,7 +73,7 @@ function App() {
 			</div>
 			<div className="sm:w-1/2 sm:px-2 w-full">
 			  <p className="font-sans antialiased font-semibold">Brandname Font color:</p>
-			  <InputColor>#abcd98</InputColor>
+			  <InputColor></InputColor>
 			</div>
 			</div>
 			<hr className="my-2.5" />
@@ -113,7 +113,7 @@ function App() {
 			<div className="sm:w-1/2 sm:px-2 w-full">
 			  <p className="font-sans antialiased font-semibold">Tagline Font color:</p>
 			  {/*<Button2Style>#000000</Button2Style>*/}
-			  <InputColor>#abcd98</InputColor>
+			  <InputColor></InputColor>
 			</div>
 			</div>
 			<hr className="my-2.5" />
@@ -158,7 +158,7 @@ function BoxHeading(props){
 }
 function InputColor(props){
   return (
-	<input type="color" className="font-sans text-2xl antialiased font-semibold" value={props.children}/>
+	<input type="color" className="font-sans text-2xl antialiased font-semibold"/>
   )
 }
 
