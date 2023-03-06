@@ -1,3 +1,4 @@
+import { Dropdown } from "flowbite-react";
 import {
   ArrowUpIcon,
   ArrowDownIcon,
@@ -34,7 +35,7 @@ function App() {
 		  </div>*/}
 		  <div className="border rounded-sm border-blue-700 px-3 pt-2 pb-3 my-2">
 			<BoxHeading>General</BoxHeading>
-			<p className="font-sans antialiased font-semibold">Background color:</p>
+			<p className="font-sans antialiased font-semibold mb-2">Background color:</p>
 			<div className="btns">
 			  <InputColor></InputColor>
 			</div>
@@ -68,11 +69,24 @@ function App() {
 			<hr className="my-2.5" />
 			<div className="sm:flex">
 			  <div className="sm:w-1/2 sm:px-2 w-full">
-			  <p className="font-sans antialiased font-semibold">Brand Font</p>
-			  <Button2Style>Cairo 500</Button2Style>
+			  <p className="font-sans antialiased font-semibold mb-2">Brand Font</p>
+			  <button id="brandFont" data-dropdown-toggle="dropdown" className="bg-grey-700 text-black px-2.5 py-1.5 rounded shadow shadow-black mb-2" type="button">Cairo 500 </button>
+			  <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm shadow-black w-64 dark:bg-gray-700">
+			    <ul className="list-inside px-4 py-2 font-sans antialiased" aria-labelledby="brandFont">
+				  <li>Arial (sans-serif)</li>
+				  <li>Verdana (sans-serif)</li>
+				  <li>Tahoma (sans-serif)</li>
+				  <li>Trebuchet MS (sans-serif)</li>
+				  <li>Times New Roman (serif)</li>
+				  <li>Georgia (serif)</li>
+				  <li>Garamond (serif)</li>
+				  <li>Courier New (monospace)</li>
+				  <li>Brush Script MT (cursive)</li>
+			    </ul>
+			  </div>
 			</div>
 			<div className="sm:w-1/2 sm:px-2 w-full">
-			  <p className="font-sans antialiased font-semibold">Brandname Font color:</p>
+			  <p className="font-sans antialiased font-semibold mb-2">Brandname Font color:</p>
 			  <InputColor></InputColor>
 			</div>
 			</div>
@@ -80,9 +94,9 @@ function App() {
 			<div className="sm:flex">
 			  <div className="sm:w-1/2 sm:px-2 w-full">
 			  <p className="font-sans antialiased font-semibold">Brandname Font size:</p>
-			  <div className="flex pt-5 pr-3">
+			  <div className="flex pt-3 pr-3 pb-3">
 			  <span>10</span>
-			  <input min="10" max="120" step="5" value="30" type="range" className="w-full mt-4 mx-2" />
+			  <input min="10" max="120" step="5" type="range" className="mt-5 mx-2 w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
 			  <span>120</span>
 			  </div>
 			</div>
@@ -107,11 +121,48 @@ function App() {
 			<hr className="my-2.5" />
 			<div className="sm:flex">
 			  <div className="sm:w-1/2 sm:px-2 w-full">
-			  <p className="font-sans antialiased font-semibold">Tagline Font</p>
-			  <Button2Style>Cairo 500</Button2Style>
+			  <p className="font-sans antialiased font-semibold mb-2">Tagline Font</p>
+			  
+			  {/* <Dropdown label="Dropdown button" className="bg-grey-700 text-black px-2.5 py-1.5 rounded mx-1 my-3 shadow shadow-black"> 
+			    <Dropdown.Item>Dashboard</Dropdown.Item>
+				<Dropdown.Item>Settings</Dropdown.Item>
+				<Dropdown.Item>Earnings</Dropdown.Item>
+				<Dropdown.Item>Sign out</Dropdown.Item>
+			  </Dropdown> */}
+			  
+			  {/*<button className="bg-grey-700 text-black px-2.5 py-1.5 rounded mx-1 my-3 shadow shadow-black">Cairo 500</button>
+			  <ul className="list-inside shadow-sm shadow-black rounded px-4 py-2 font-sans antialiased">
+			    <li>Arial (sans-serif)</li>
+				<li>Verdana (sans-serif)</li>
+				<li>Tahoma (sans-serif)</li>
+				<li>Trebuchet MS (sans-serif)</li>
+				<li>Times New Roman (serif)</li>
+				<li>Georgia (serif)</li>
+				<li>Garamond (serif)</li>
+				<li>Courier New (monospace)</li>
+				<li>Brush Script MT (cursive)</li>
+			  </ul>*/}
+			  
+			  
+			<button id="taglineFont" data-dropdown-toggle="dropdown" className="bg-grey-700 text-black px-2.5 py-1.5 rounded shadow shadow-black mb-2" type="button">Cairo 500 </button>
+			<div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm shadow-black w-64 dark:bg-gray-700">
+			  <ul className="list-inside px-4 py-2 font-sans antialiased" aria-labelledby="taglineFont">
+				<li>Arial (sans-serif)</li>
+				<li>Verdana (sans-serif)</li>
+				<li>Tahoma (sans-serif)</li>
+				<li>Trebuchet MS (sans-serif)</li>
+				<li>Times New Roman (serif)</li>
+				<li>Georgia (serif)</li>
+				<li>Garamond (serif)</li>
+				<li>Courier New (monospace)</li>
+				<li>Brush Script MT (cursive)</li>
+			  </ul>
+			</div>
+
+			  
 			</div>
 			<div className="sm:w-1/2 sm:px-2 w-full">
-			  <p className="font-sans antialiased font-semibold">Tagline Font color:</p>
+			  <p className="font-sans antialiased font-semibold mb-2">Tagline Font color:</p>
 			  {/*<Button2Style>#000000</Button2Style>*/}
 			  <InputColor></InputColor>
 			</div>
@@ -120,9 +171,9 @@ function App() {
 			<div className="sm:flex">
 			  <div className="sm:w-1/2 sm:px-2 w-full">
 			  <p className="font-sans antialiased font-semibold">Tagline Font Size:</p>
-			  <div className="flex pt-5 pr-3">
+			  <div className="flex pt-3 pr-3 pb-3">
 			  <span>10</span>
-			  <input min="1" max="40" step="1" value="20" type="range" className="w-full mt-4 mx-2" />
+			  <input min="1" max="40" step="1" type="range" className="mt-5 mx-2 w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
 			  <span>40</span>
 			  </div>
 			</div>
@@ -158,7 +209,7 @@ function BoxHeading(props){
 }
 function InputColor(props){
   return (
-	<input type="color" className="font-sans text-2xl antialiased font-semibold"/>
+	<input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full" />
   )
 }
 
