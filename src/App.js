@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, Component } from 'react';
-import { Dropdown } from "flowbite-react";
+import { Dropdown, Select } from "flowbite-react";
+import FontPicker from 'font-picker-react';
 import {
   ArrowUpIcon,
   ArrowDownIcon,
@@ -13,6 +14,9 @@ import {
 } from 'fabric';
 import $ from 'jquery';
 
+
+var FontFaceObserver = require('fontfaceobserver');
+
 class App extends React.Component {
 
     canvas = null;
@@ -23,7 +27,8 @@ class App extends React.Component {
     state = {
         canvaspages: [],
         displaybgColorPicker: false,
-        subtarget: null
+        subtarget: null,
+        activeFontFamily: "Open Sans",
     };
 
     constructor(props, context) {
@@ -153,10 +158,22 @@ class App extends React.Component {
     }
 
 
-      setColor = (color) => {
+      setFontColor = (event) => {
        this.changeObjectproperty('fill', event.target.value);
       }
 
+      setFontFamily = (fontfamily) => {
+        var self = this;
+        var myfont = new FontFaceObserver(fontfamily);
+        myfont.load().then(function() {
+          self.setActiveStyle('fontFamily', fontfamily);
+        }).catch(function(e) {
+          console.log(e);
+        });
+        self.setState({
+          activeFontFamily: fontfamily
+        })
+      }
       
      changeObjectproperty(style, hex) {
         var lthis = this;
@@ -219,8 +236,8 @@ class App extends React.Component {
       <div className="max-w-screen-xl mx-auto md:flex px-2">
         <div className="leftSide md:w-1/2 px-2 w-full">
             <div id="parent" className="border rounded-sm border-blue-700 px-3 py-4 my-2 text-center h-80 flex items-center flex-col justify-content-center">
-            <canvas id='canvas0' style={{ padding: "0px 0px 10px 0px" }} className='canvas0'></canvas>
-          </div> 
+              <canvas id='canvas0' style={{ padding: "0px 0px 10px 0px" }} className='canvas0'></canvas>
+            </div> 
           <div className="border rounded-sm border-blue-700 px-3 pt-2 pb-3 my-2">
             <h2 className="font-sans text-2xl antialiased font-semibold">Layouts</h2>
             
@@ -251,8 +268,48 @@ class App extends React.Component {
             <div className="sm:flex">
               <div className="sm:w-1/2 sm:px-2 w-full">
               <p className="font-sans antialiased font-semibold mb-2">Brand Font</p>
-              <button id="brandFont" data-dropdown-toggle="dropdown" className="bg-grey-700 text-black px-2.5 py-1.5 rounded shadow shadow-black mb-2" type="button">Cairo 500 </button>
-              <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm shadow-black w-64 dark:bg-gray-700">
+              {/*<button id="brandFont" data-dropdown-toggle="dropdown" className="bg-grey-700 text-black px-2.5 py-1.5 rounded shadow shadow-black mb-2" type="button">Cairo 500 </button>*/}
+              {/*<Select style={{width: "200px"}} id="fonts" required={true} activeFontFamily={this.state.activeFontFamily}  onChange={this.setFontFamily}>
+                <option value="Open Sans">
+                  Arial (sans-serif)
+                </option>
+                <option value="serif">
+                  Verdana (sans-serif)
+                </option>
+                <option value="Tahoma">
+                  Tahoma (sans-serif)
+                </option>
+                <option value="Trebuchet MS">
+                  Trebuchet MS (sans-serif)
+                </option>
+                <option value="Times New Roman">
+                  Times New Roman (serif)
+                </option>
+                <option value="Georgia">
+                  Georgia (serif)
+                </option>
+                <option value="Garamond">
+                  Garamond (serif)
+                </option>
+                <option value="Courier New">
+                  Courier New (monospace)
+                </option>
+                <option value="Brush Script MT">
+                  Brush Script MT (cursive)
+                </option>
+              </Select>*/}
+
+               <div title="Font Family" className="font-familiy-container">
+                  <FontPicker
+                    ref={c => this.pickerRef = c}
+                    apiKey="AIzaSyCOyeDUsAnL-jnWudXBKNNma9cXmXsT4tM"
+                    activeFontFamily={this.state.activeFontFamily}
+                    limit="150"
+                    onChange={nextFont => this.setFontFamily(nextFont.family)}
+                  />
+               </div>
+             
+              {/*<div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm shadow-black w-64 dark:bg-gray-700">
                 <ul className="list-inside px-4 py-2 font-sans antialiased" aria-labelledby="brandFont">
                   <li>Arial (sans-serif)</li>
                   <li>Verdana (sans-serif)</li>
@@ -264,11 +321,11 @@ class App extends React.Component {
                   <li>Courier New (monospace)</li>
                   <li>Brush Script MT (cursive)</li>
                 </ul>
-              </div>
+              </div>*/}
             </div>
             <div className="sm:w-1/2 sm:px-2 w-full">
               <p className="font-sans antialiased font-semibold mb-2">Brandname Font color:</p>
-              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full" color={ this.state.background }  onChange={this.setColor} />
+              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full" color={ this.state.background }  onChange={this.setFontColor} />
             </div>
             </div>
             <hr className="my-2.5" />

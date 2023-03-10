@@ -59,8 +59,6 @@ class FabricCanvas extends React.Component {
             displaybgColorPicker: false
         });
         self.addHeadingtxt();
-        self.delete();
-
     }
 
     
