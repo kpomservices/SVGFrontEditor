@@ -20,6 +20,8 @@ class FabricCanvas extends React.Component {
         super(props);
     }
 
+    
+
     updateState(e) {
         var stateoptions = {};
         if (e) {
@@ -57,7 +59,11 @@ class FabricCanvas extends React.Component {
             displaybgColorPicker: false
         });
         self.addHeadingtxt();
+        self.delete();
+
     }
+
+    
 
     addHeadingtxt = () => {
       var canvas = this.canvas;
@@ -112,6 +118,7 @@ class FabricCanvas extends React.Component {
                         subtarget: e.subTargets[0]
                     })
                 }
+                lthis.delete();
             },
             'object:added': (e) => {
                 lthis.updateState(e);
