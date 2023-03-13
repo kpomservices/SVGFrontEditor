@@ -23,9 +23,11 @@ class App extends React.Component {
     canvaswidth = 590;
     canvasheight = 300;
     background: '#883636';
+    fontbackground: '#883636';
     jsonCanvasArray = [];
     state = {
         canvaspages: [],
+        opacityval: '20',
         displaybgColorPicker: false,
         subtarget: null,
         activeFontFamily: "Open Sans",
@@ -95,67 +97,20 @@ class App extends React.Component {
         $(".main-area").mousedown(function(e) {
             e.stopImmediatePropagation();
         });
-
-        fabric.util.addListener(lthis.canvas.upperCanvasEl, 'dblclick', function(e) {
-            if (lthis.state.subtarget) {
-                lthis.setState({
-                    subtarget: null
-                })
-            }
-        });
-
         lthis.canvas.on({
-            'mouse:down': (e) => {
-                if (e.subTargets && e.subTargets[0]) {
-                    lthis.setState({
-                        subtarget: e.subTargets[0]
-                    })
-                }
-            },
-            'object:moving': (e) => {
-                if (e.subTargets && e.subTargets[0]) {
-                    lthis.setState({
-                        subtarget: e.subTargets[0]
-                    })
-                }
-               
-            },
-            'object:added': (e) => {
-                //this.updateState(e);
-                //saveCanvasState(lthis.canvas);
-            },
-            'object:modified': (e) => {
-                if (e.subTargets && e.subTargets[0]) {
-                    lthis.setState({
-                        subtarget: e.subTargets[0]
-                    })
-                }
-            },
-            'object:selected': (e) => {
-                //lthis.updateState(e);
-            },
-            'object:scaling': (e) => {
-                //selectObject(lthis.canvas);
-            },
-            'selection:created': (e) => {
-                if (e.subTargets) {
-                    //selectObject(lthis.canvas, e.subTargets[0]);
-                    console.log("create");
-                } else
-                    //selectObject(lthis.canvas);
-                    console.log("else");
-            },
-            'selection:updated': () => {
-                //selectObject(lthis.canvas);
-            },
-            'selection:cleared': () => {
-                //lthis.updateState();
-            },
-            'selection:added': (e) => {
-                console.log("selection:added");
-            },
+            'mouse:down': (e) => { },
+            'object:moving': (e) => { },
+            'object:added': (e) => { },
+            'object:modified': (e) => { },
+            'object:selected': (e) => { },
+            'object:scaling': (e) => { },
+            'selection:created': (e) => { },
+            'selection:updated': () => { },
+            'selection:cleared': () => { },
+            'selection:added': (e) => { },
         });
     }
+
 
 
       setFontColor = (event) => {
@@ -174,7 +129,33 @@ class App extends React.Component {
           activeFontFamily: fontfamily
         })
       }
-      
+
+      setBGColor = (color) => {
+          var lthis = this;
+          var canvas = lthis.canvas;
+          canvas.backgroundColor = '';  
+          canvas.bgcolor = '';  
+          canvas.bgcolor = event.target.value;  
+          canvas.backgroundColor = event.target.value;
+          canvas.renderAll();
+      }
+
+      resetBGColor = (color) => {
+          var lthis = this;
+          var canvas = lthis.canvas;
+          canvas.backgroundColor = '';  
+          canvas.bgcolor = '';  
+          canvas.renderAll();
+      }
+
+      handleChange = (event) => {
+        this.setState({
+          opacityval: event.target.value
+        });
+
+       this.setActiveStyle('fontSize', event.target.value);
+      }
+
      changeObjectproperty(style, hex) {
         var lthis = this;
         var canvas = lthis.canvas;
@@ -251,11 +232,20 @@ class App extends React.Component {
           </div>
           <div className="border rounded-sm border-blue-700 px-3 pt-2 pb-3 my-2">
            <h2 className="font-sans text-2xl antialiased font-semibold">General</h2>
+            <hr className="my-2.5" />
+            <div className="sm:flex">
+              <div className="sm:w-1/2 sm:px-2 w-full">
+              <p className="font-sans antialiased font-semibold mb-2">Background Reset:</p>
+              <button className="bg-grey-700 text-black px-2.5 py-1.5 rounded mx-1 my-3 shadow shadow-black"  onClick={this.resetBGColor}>Reset</button>
+            </div>
+            <div className="sm:w-1/2 sm:px-2 w-full">
             <p className="font-sans antialiased font-semibold mb-2">Background color:</p>
             <div className="btns">
-              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full"/>
+              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full"  color={ this.state.background }  onChange={this.setBGColor} />
             </div>
           </div>
+        </div>
+        </div>
         </div>
         <div className="rightSide md:w-1/2 px-2 w-full">
           <div className="border rounded-sm border-blue-700 px-3 pt-2 pb-3 my-2">
@@ -325,7 +315,7 @@ class App extends React.Component {
             </div>
             <div className="sm:w-1/2 sm:px-2 w-full">
               <p className="font-sans antialiased font-semibold mb-2">Brandname Font color:</p>
-              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full" color={ this.state.background }  onChange={this.setFontColor} />
+              <input type="color" className="font-sans text-2xl antialiased font-semibold w-8 h-8 rounded-full" color={ this.state.fontbackground }  onChange={this.setFontColor} />
             </div>
             </div>
             <hr className="my-2.5" />
@@ -334,9 +324,9 @@ class App extends React.Component {
               <p className="font-sans antialiased font-semibold">Brandname Font size:</p>
               
               <div className="flex pt-3 pr-3 pb-3">
-              <span>10</span>
-              <input min="10" max="120" step="5" type="range" className="mt-5 mx-2 w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
-              <span>120</span>
+              <span>20</span>
+              <input min="10" max="120" step="5" type="range" value={this.state.opacityval} onChange={this.handleChange} className="mt-5 mx-2 w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+              <span>{this.state.opacityval}%</span>
               </div>
             </div>
             {/*<div className="sm:w-1/2 sm:px-2 w-full pt-3 sm:pt-0">
