@@ -584,6 +584,7 @@ class App extends React.Component {
     showIconsPopup = (e) => {
         this.fileIconsInput.click();
     }
+
     uploadIcon = (e) => {
         var self = this;
         const fileTypes = ['svg'];
@@ -616,7 +617,36 @@ class App extends React.Component {
                 console.log('Please upload svg images only.');
             }
         }
+    }
 
+    addBNText() {
+        var text = new fabric.Textbox('Brand Name', {
+            fontFamily: 'Abel',
+            editable: true,
+            left: 100,
+            top: 100,
+            fontSize: 36,
+            width: 250,
+        });
+        canvas.add(text);
+        canvas.setActiveObject(text);
+        selectObject(canvas);
+        canvas.renderAll();
+    }
+
+    addTLText() {
+        var text = new fabric.Textbox('Tagline Text', {
+            fontFamily: 'Abel',
+            editable: true,
+            left: 100,
+            top: 100,
+            fontSize: 20,
+            width: 250,
+        });
+        canvas.add(text);
+        canvas.setActiveObject(text);
+        selectObject(canvas);
+        canvas.renderAll();
     }
 
     addSVG = (result) => {
@@ -652,7 +682,11 @@ class App extends React.Component {
                   <div className="border rounded-sm border-blue-700 px-3 pt-2 pb-3 my-2">
                     <h2 className="font-sans text-2xl antialiased font-semibold">Layouts</h2>
                     <hr className="my-2.5" />
-                    <div className="btns"> {this.state.templateImages.map((temp, index) => ( <button key={index} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=> this.loadTemplate(temp.id, SERVER_PHP_URL + temp.template_json)}>Layout {index + 1}</button> ))} </div>
+                    <div className="btns">                    
+                        <Button2Style>layout0l</Button2Style>
+                        <Button2Style>layout02</Button2Style>
+                        <Button2Style>layout03</Button2Style> 
+                    </div>
                   </div>                  
                 </div>
                 <div className="rightSide md:w-1/2 px-2 w-full">
@@ -732,6 +766,11 @@ class App extends React.Component {
             </div>
         );
     }
+}
+function Button2Style(props){
+  return (
+	<button className="bg-grey-700 text-black px-2.5 py-1.5 rounded mx-1 my-3 shadow shadow-black">{props.children}</button>
+  )
 }
 
 export default App;
