@@ -484,12 +484,19 @@ class App extends React.Component {
         console.log(observers);*/
 
         var svgfontArr = [];
+
         $('.font-list-item').each(function() {
+
             svgfontArr[$(this).text()] = "https://fonts.googleapis.com/css2?family=" + $(this).text();
+
             console.log($(this).text());
+
             console.log("https://fonts.googleapis.com/css2?family=" + $(this).text());
+
         });
+
         fabric.fontPaths = svgfontArr; 
+        
         
         let canvasDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(lthis.canvas.toSVG()),
             link = document.createElement('a');
